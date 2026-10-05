@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>YIT-DEV-DS-001 — Device Set and Installation Guide</title>
+<style>
+  :root {
+    --ink: #1c2430;
+    --muted: #5b6b7c;
+    --line: #d5dee8;
+    --navy: #0e3a5d;
+    --navy-2: #164e78;
+    --wash: #f3f7fb;
+    --wash-2: #e7f0f7;
+    --amber: #8a5a10;
+    --amber-bg: #fff6e6;
+    --green: #0f5c45;
+    --green-bg: #e8f6f1;
+    --code-bg: #f6f8fb;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Inter, "Liberation Sans", "Noto Sans", sans-serif;
+    color: var(--ink);
+    font-size: 10.5pt;
+    line-height: 1.48;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    size: Letter;
+    margin: 16mm 15mm 16mm 15mm;
+    @top-left {
+      content: "Device set and installation guide";
+      font-family: Inter, "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      color: #5b6b7c;
+    }
+    @top-right {
+      content: "YIT-DEV-DS-001";
+      font-family: Inter, "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      color: #5b6b7c;
+    }
+    @bottom-left {
+      content: "Revision 1.0  ·  5 October 2026";
+      font-family: Inter, "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      color: #5b6b7c;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-family: Inter, "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      color: #5b6b7c;
+    }
+  }
+  @page:first {
+    margin-top: 14mm;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  h1, h2, h3, h4 { font-weight: 650; letter-spacing: -0.01em; page-break-after: avoid; }
+  h2 {
+    font-size: 15pt;
+    color: var(--navy);
+    margin: 1.15em 0 0.35em;
+    padding-bottom: 0.12em;
+    border-bottom: 1.5pt solid var(--navy);
+  }
+  h3 { font-size: 12pt; color: var(--navy-2); margin: 0.95em 0 0.25em; }
+  h4 { font-size: 10.5pt; margin: 0.8em 0 0.2em; }
+  p { margin: 0.35em 0 0.55em; }
+  a { color: var(--navy-2); text-decoration: none; }
+
+  .cover {
+    page-break-after: always;
+    border-top: 8pt solid var(--navy);
+  }
+  .cover-contents {
+    margin: 10mm 0 8mm;
+    padding: 4mm 5mm 3mm;
+    background: var(--wash);
+    border: 0.6pt solid var(--line);
+  }
+  .cover-contents p {
+    margin: 0 0 2mm;
+    font-size: 8pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 650;
+  }
+  .cover-contents ol {
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    column-gap: 8mm;
+    list-style: none;
+    counter-reset: toc;
+  }
+  .cover-contents li {
+    counter-increment: toc;
+    break-inside: avoid;
+    font-size: 10pt;
+    padding: 1.1mm 0;
+    border-bottom: 0.4pt solid var(--line);
+  }
+  .cover-contents li::before {
+    content: counter(toc) "  ";
+    color: var(--navy);
+    font-weight: 650;
+  }
+  .kicker {
+    margin-top: 18mm;
+    font-size: 9pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 650;
+  }
+  .cover h1 {
+    font-size: 32pt;
+    line-height: 1.08;
+    margin: 6mm 0 4mm;
+    color: #102033;
+    max-width: 160mm;
+  }
+  .subtitle {
+    font-size: 13pt;
+    color: var(--muted);
+    max-width: 155mm;
+    line-height: 1.35;
+  }
+  .cover-meta {
+    margin-top: 6mm;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1pt solid var(--line);
+    border-bottom: 1pt solid var(--line);
+  }
+  .cover-meta div { padding: 4mm 4mm 4mm 0; }
+  .cover-meta div + div { border-left: 1pt solid var(--line); padding-left: 5mm; }
+  .cover-meta dt {
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 1mm;
+  }
+  .cover-meta dd { margin: 0 0 3mm; font-weight: 600; }
+  .cover-foot {
+    margin-top: 6mm;
+    font-size: 9pt;
+    color: var(--muted);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.4em 0 0.8em;
+    font-size: 9pt;
+  }
+  thead { display: table-header-group; }
+  tr, th, td { break-inside: avoid; page-break-inside: avoid; }
+  th, td {
+    border: 0.6pt solid var(--line);
+    padding: 1.6mm 2.2mm;
+    vertical-align: top;
+    text-align: left;
+  }
+  th {
+    background: var(--navy);
+    color: white;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: var(--wash); }
+  code, pre, .mono { font-family: "JetBrains Mono", "Cascadia Mono", "Liberation Mono", monospace; }
+  code {
+    font-size: 8.7pt;
+    background: var(--code-bg);
+    padding: 0.05em 0.28em;
+    border-radius: 2px;
+  }
+  pre {
+    background: #102033;
+    color: #e8eef5;
+    padding: 3.2mm 3.6mm;
+    border-radius: 2px;
+    font-size: 8.6pt;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+    margin: 0.4em 0 0.8em;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; font-size: inherit; }
+
+  ol.steps { list-style: none; padding: 0; margin: 0.3em 0 0.6em; counter-reset: step; }
+  ol.steps > li {
+    counter-increment: step;
+    margin: 0 0 3.2mm;
+    padding: 2.4mm 3mm 2.4mm 12mm;
+    background: var(--wash);
+    border-left: 2.5pt solid var(--navy);
+    page-break-inside: avoid;
+    position: relative;
+  }
+  ol.steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 3mm;
+    top: 2.5mm;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  ol.steps h3 { margin: 0 0 0.2em; font-size: 11pt; }
+  ol.steps p:last-child { margin-bottom: 0; }
+
+  .note, .warn, .ok {
+    page-break-inside: avoid;
+    padding: 2.4mm 3.2mm;
+    margin: 0.4em 0 0.75em;
+    border-left: 2.5pt solid var(--navy);
+    background: var(--wash-2);
+  }
+  .warn { border-left-color: var(--amber); background: var(--amber-bg); }
+  .ok { border-left-color: var(--green); background: var(--green-bg); }
+  .note strong, .warn strong, .ok strong { font-weight: 700; }
+
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: 1.6mm;
+    align-items: stretch;
+    margin: 0.5em 0 0.9em;
+    page-break-inside: avoid;
+  }
+  .flow .box {
+    background: var(--wash);
+    border: 0.8pt solid #b7c9da;
+    padding: 2.2mm;
+    font-size: 8.6pt;
+  }
+  .flow .box strong { display: block; color: var(--navy); font-size: 8pt; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.6mm; }
+  .flow .arrow {
+    align-self: center;
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  ul { margin: 0.25em 0 0.6em; padding-left: 1.15em; }
+  li { margin: 0.12em 0; }
+  .small { font-size: 9pt; color: var(--muted); }
+  .keep { page-break-inside: avoid; }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 8.5pt;
+    color: var(--muted);
+    padding-top: 1.2mm;
+  }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="kicker">Engineering guide · YIT-DEV-DS-001 · Revision 1.0</div>
+  <h1>Device set and installation guide</h1>
+  <p class="subtitle">Development environment for the <span class="mono">yit2022/yit2022</span> repository: the machines, the software on them, and the installation and verification procedure.</p>
+  <div class="cover-contents">
+    <p>Contents</p>
+    <ol>
+      <li>Purpose and scope</li>
+      <li>Device set</li>
+      <li>Software set</li>
+      <li>Repository map</li>
+      <li>Installation</li>
+      <li>Verification</li>
+      <li>Operating rules</li>
+      <li>Troubleshooting</li>
+      <li>Document control</li>
+    </ol>
+  </div>
+  <dl class="cover-meta">
+    <div>
+      <dt>Repository</dt>
+      <dd>github.com/yit2022/yit2022</dd>
+      <dt>Validated branch</dt>
+      <dd>main @ 93c435c</dd>
+      <dt>Document date</dt>
+      <dd>5 October 2026</dd>
+    </div>
+    <div>
+      <dt>Applies to</dt>
+      <dd>Local checkout and Cursor Cloud Agent</dd>
+      <dt>Install result</dt>
+      <dd>Idempotent. No services to start.</dd>
+      <dt>Status</dt>
+      <dd>Validated on Ubuntu 24.04.4 LTS</dd>
+    </div>
+  </dl>
+  <p class="cover-foot">This document describes how to prepare a machine to work on this repository. It is the installation guide for the repository that exists today: a GitHub profile README, with no application runtime.</p>
+</section>
+
+<h2>1. Purpose and scope</h2>
+<p>This guide defines the device set used to read, edit, and verify <span class="mono">github.com/yit2022/yit2022</span>, and it gives the exact installation procedure for that set. Follow it when setting up a workstation or when confirming that a Cursor Cloud Agent environment can check the repository out and leave it ready to edit.</p>
+<p>The repository contains one tracked file, <span class="mono">README.md</span>. That file is the GitHub profile page for @yit2022. It states an interest in robotic process automation and UiPath. The repository does not contain a UiPath project, a package manifest, a Dockerfile, tests, or a server. Installation therefore does not download packages and does not start a process.</p>
+
+<h3>1.1 What this guide covers</h3>
+<ul>
+  <li>The two devices in the set, and which one you need.</li>
+  <li>Required software, with the versions observed on the validation virtual machine.</li>
+  <li>Software that is present on the Cloud Agent image and is not used by this repository.</li>
+  <li>The install command, how to run it twice, and the acceptance check.</li>
+  <li>Failures that look like environment problems and are actually a wrong working directory.</li>
+</ul>
+
+<h3>1.2 What this guide does not cover</h3>
+<ul>
+  <li>Installing UiPath Studio, Robot, or Orchestrator. Nothing in this repository calls those products.</li>
+  <li>Publishing the profile, GitHub account settings, or DNS.</li>
+  <li>Production deployment. There is no deployed service.</li>
+</ul>
+
+<h3>1.3 How to read the tables</h3>
+<p>Device and software rows use stable identifiers (<span class="mono">DS-WS</span>, <span class="mono">SW-GIT</span>). “Required” means the installation in this guide fails or cannot be verified without that item. “Image only” means the tool was present on the validated Cloud Agent virtual machine and is not invoked by the install or the acceptance check.</p>
+
+<h2>2. Device set</h2>
+<p>A device set is the collection of machines that can perform the work. This repository has two roles. You need one of them. You do not need both.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Device</th>
+      <th>Role</th>
+      <th>When to use it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>DS-WS</code></td>
+      <td>Engineer workstation</td>
+      <td>Clone the repository, edit <code>README.md</code>, and run the acceptance check.</td>
+      <td>Day-to-day edits on your own computer.</td>
+    </tr>
+    <tr>
+      <td><code>DS-CA</code></td>
+      <td>Cursor Cloud Agent virtual machine</td>
+      <td>Check the repository out under <code>/workspace</code>, run the install command, and leave a shell ready for an agent.</td>
+      <td>Cloud Agent sessions, including environment builds.</td>
+    </tr>
+  </tbody>
+  <caption>Table 1. Devices in the set. Either device can complete the work.</caption>
+</table>
+
+<div class="flow">
+  <div class="box"><strong>1. Checkout</strong>Git clone or Cloud Agent checkout of <code>main</code> into the working directory.</div>
+  <div class="arrow">→</div>
+  <div class="box"><strong>2. Install</strong><code>test -f README.md</code>, then print the ready line. The command exits.</div>
+  <div class="arrow">→</div>
+  <div class="box"><strong>3. Verify</strong>Python reads the profile text and prints <code>HELLO_WORLD_OK</code>.</div>
+  <div class="arrow">→</div>
+  <div class="box"><strong>4. Ready</strong>Edit <code>README.md</code>. No daemon is left running.</div>
+</div>
+
+<h3>2.1 Workstation requirements (DS-WS)</h3>
+<p>Any current desktop or laptop is sufficient. The procedure was not tied to a CPU count or a memory size. Provide:</p>
+<ul>
+  <li>An operating system that can run Git and Bash, or Git Bash on Windows.</li>
+  <li>Git 2.30 or newer. The validation machine used Git 2.43.0.</li>
+  <li>Python 3.9 or newer, used only by the acceptance check in section 6. The install command itself is shell.</li>
+  <li>A text editor. No IDE is required.</li>
+  <li>Network access to <span class="mono">github.com</span> for the initial clone.</li>
+</ul>
+<p>Disk use after clone is a few kilobytes for the Git history plus the 434-byte README. Reserve a normal working copy; there is no build output.</p>
+
+<h3>2.2 Cloud Agent virtual machine (DS-CA)</h3>
+<p>The procedure in section 5 was executed on a Cloud Agent virtual machine with the characteristics below. Treat the CPU and memory figures as observed capacity, not as a minimum. The install command does not allocate memory beyond a shell and, during verification, a short Python process.</p>
+
+<table>
+  <thead>
+    <tr><th>Attribute</th><th>Validated value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Operating system</td><td>Ubuntu 24.04.4 LTS (Noble Numbat)</td></tr>
+    <tr><td>Architecture</td><td>x86_64</td></tr>
+    <tr><td>Processors observed</td><td>4</td></tr>
+    <tr><td>Memory observed</td><td>15 GiB reported by <code>free -h</code></td></tr>
+    <tr><td>Login user</td><td><code>ubuntu</code></td></tr>
+    <tr><td>Workspace</td><td><code>/workspace</code></td></tr>
+    <tr><td>Shell for install</td><td><code>bash -lc</code> (login, non-interactive)</td></tr>
+    <tr><td>Egress on the validation run</td><td>Unrestricted. The install command does not download anything.</td></tr>
+  </tbody>
+  <caption>Table 2. Host specification observed while validating revision 1.0.</caption>
+</table>
+
+<div class="note"><strong>Account.</strong> Cloud Agent commands run as <code>ubuntu</code>. Do not add a second user. The install command does not use <code>sudo</code> and does not write outside the repository.</div>
+
+<h2>3. Software set</h2>
+<p>Install only what the device role requires. Extra language toolchains on the Cloud Agent image are listed so an agent does not mistake them for project dependencies.</p>
+
+<h3>3.1 Required software</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Component</th>
+      <th>Minimum</th>
+      <th>Validated</th>
+      <th>Used for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>SW-GIT</code></td>
+      <td>Git</td>
+      <td>2.30</td>
+      <td>2.43.0 at <code>/usr/bin/git</code></td>
+      <td>Clone and status</td>
+    </tr>
+    <tr>
+      <td><code>SW-BASH</code></td>
+      <td>Bash</td>
+      <td>4</td>
+      <td>5.2.21</td>
+      <td>Install command</td>
+    </tr>
+    <tr>
+      <td><code>SW-PY</code></td>
+      <td>Python 3</td>
+      <td>3.9</td>
+      <td>3.12.3 at <code>/usr/bin/python3</code></td>
+      <td>Section 6 acceptance check only</td>
+    </tr>
+    <tr>
+      <td><code>SW-CORE</code></td>
+      <td><code>test</code>, POSIX utilities</td>
+      <td>From the shell</td>
+      <td>Ubuntu coreutils</td>
+      <td><code>test -f README.md</code></td>
+    </tr>
+  </tbody>
+  <caption>Table 3. Software the procedure actually runs.</caption>
+</table>
+
+<p>On Ubuntu, Git and Python 3 are installed with the distribution packages if they are missing:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install -y --no-install-recommends git python3 ca-certificates</code></pre>
+<p>Confirm the commands resolve before cloning:</p>
+<pre><code>git --version
+python3 --version
+bash --version</code></pre>
+
+<h3>3.2 Present on the validated image, not used by this repository</h3>
+<p>The Cloud Agent base image includes compilers and runtimes this repository never calls. Do not add them to the install command. Do not remove them as part of installing this repository; they belong to the base image, not to the project.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Component</th>
+      <th>Version observed</th>
+      <th>How it resolved</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>SW-NODE</code></td>
+      <td>Node.js on <code>PATH</code></td>
+      <td>v22.14.0</td>
+      <td><code>/exec-daemon/node</code></td>
+    </tr>
+    <tr>
+      <td><code>SW-NPM</code></td>
+      <td>npm</td>
+      <td>10.9.7</td>
+      <td>nvm Node v22.22.2, <code>~/.nvm/versions/node/v22.22.2/bin/npm</code></td>
+    </tr>
+    <tr>
+      <td><code>SW-PNPM</code></td>
+      <td>pnpm</td>
+      <td>10.33.3</td>
+      <td>Same nvm Node v22.22.2 prefix</td>
+    </tr>
+    <tr>
+      <td><code>SW-GO</code></td>
+      <td>Go</td>
+      <td>1.22.2 linux/amd64</td>
+      <td><code>/usr/bin/go</code></td>
+    </tr>
+    <tr>
+      <td><code>SW-RUST</code></td>
+      <td>rustc</td>
+      <td>1.83.0 (90b35a623, 2024-11-26)</td>
+      <td><code>/usr/local/cargo/bin/rustc</code></td>
+    </tr>
+    <tr>
+      <td><code>SW-JDK</code></td>
+      <td>OpenJDK</td>
+      <td>21.0.10+7 (Ubuntu 124.04)</td>
+      <td><code>/usr/bin/java</code></td>
+    </tr>
+  </tbody>
+  <caption>Table 4. Image software recorded on 5 October 2026. None of these are project dependencies.</caption>
+</table>
+
+<div class="warn"><strong>Node and npm are not one install.</strong> On the validation virtual machine, <code>node</code> was v22.14.0 from <code>/exec-daemon/node</code>, while <code>npm</code> and <code>pnpm</code> belonged to nvm’s Node v22.22.2. This repository does not run Node. If a later change adds a Node project, pin one Node binary and invoke that install’s <code>npm</code>, and put the install in the environment install command. Do not assume <code>node</code> and <code>npm</code> on <code>PATH</code> share a prefix.</div>
+
+<h3>3.3 Secrets and network</h3>
+<p>No API token, password, or private registry is required to install or verify this repository. Cloning over HTTPS uses whatever GitHub authentication the operator already has. The install command makes no outbound request. A machine that cannot reach the public internet can still run install and verification on an existing checkout.</p>
+
+<h2>4. Repository map</h2>
+<p>Validated against <span class="mono">main</span> at commit <span class="mono">93c435c1074bab627843b33e276b8e67abeb40bf</span> (“Create README.md”, 23 May 2022) before this guide was added. After this guide is merged, the tree also contains this document and its HTML source. No other product files are part of the device set.</p>
+
+<table>
+  <thead>
+    <tr><th>Path</th><th>Role</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>README.md</code></td>
+      <td>GitHub profile page. 434 bytes, 10 lines. The install command checks that this file exists. The acceptance check reads its text.</td>
+    </tr>
+    <tr>
+      <td><code>docs/device-set-and-installation-guide.html</code></td>
+      <td>Source for this guide.</td>
+    </tr>
+    <tr>
+      <td><code>docs/device-set-and-installation-guide.pdf</code></td>
+      <td>This guide, rendered for reading and printing.</td>
+    </tr>
+    <tr>
+      <td><code>scripts/render-device-guide.sh</code></td>
+      <td>Reprints the PDF from the HTML source with headless Chrome.</td>
+    </tr>
+  </tbody>
+  <caption>Table 5. Files an operator should expect after this guide is added. The install command still keys off <code>README.md</code> only.</caption>
+</table>
+
+<p>The profile text that must remain readable, ignoring the HTML comment GitHub adds to profile repositories, is:</p>
+<ul>
+  <li>Hi, I’m @yit2022</li>
+  <li>I’m interested in Robotic Process automation</li>
+  <li>I’m currently learning UIPATH</li>
+  <li>I’m looking to collaborate on robotic process automations projects</li>
+  <li>How to reach me rofric2020@gmail.com</li>
+</ul>
+<p>The acceptance check requires the strings <span class="mono">yit2022</span>, <span class="mono">UIPATH</span>, and <span class="mono">rofric2020@gmail.com</span>, at least four visible lines, and an even number of Markdown fence markers (there are none today). Updating the biography is fine. If those strings are removed, update section 6 in the same change so the check matches the new profile.</p>
+
+<div class="note"><strong>Working directory.</strong> Every command in sections 5 and 6 assumes the current directory is the repository root, the directory that contains <code>README.md</code>. On a Cloud Agent that directory is <code>/workspace</code>.</div>
+
+<h2>5. Installation</h2>
+<p>Installation is intentionally small. It proves the checkout is the repository root and then exits. It does not modify files, install packages, or listen on a port. Running it again is the idempotence check: the second run must also exit 0 and print the same line.</p>
+
+<h3>5.1 Install command</h3>
+<p>Save this as the Cloud Agent install command, or run it from the repository root in any Bourne-compatible login shell. Keep the three lines. Do not join them with <span class="mono">&amp;&amp;</span>.</p>
+<pre><code>set -euo pipefail
+test -f README.md
+echo "No package dependencies. Profile README repository is ready."</code></pre>
+<p>Expected standard output, and nothing on standard error:</p>
+<pre><code>No package dependencies. Profile README repository is ready.</code></pre>
+<p>Exit status <span class="mono">0</span>. If <span class="mono">README.md</span> is absent, <span class="mono">test</span> returns status 1 and <span class="mono">set -e</span> stops the script before the echo.</p>
+
+<h3>5.2 Install on a workstation (DS-WS)</h3>
+<ol class="steps">
+  <li>
+    <h3>Install Git and Python 3</h3>
+    <p>Use section 3.1. Skip this step when <code>git --version</code> and <code>python3 --version</code> already succeed.</p>
+  </li>
+  <li>
+    <h3>Clone the repository</h3>
+    <p>Pick an empty parent directory. The clone creates <code>yit2022</code>.</p>
+    <pre><code>git clone https://github.com/yit2022/yit2022.git
+cd yit2022
+git status
+git rev-parse --abbrev-ref HEAD</code></pre>
+    <p><code>git status</code> should report a clean work tree. The branch should be <code>main</code> unless you checked out another branch on purpose.</p>
+  </li>
+  <li>
+    <h3>Run the install command</h3>
+    <p>From the clone root:</p>
+    <pre><code>bash -lc 'set -euo pipefail
+test -f README.md
+echo "No package dependencies. Profile README repository is ready."'</code></pre>
+  </li>
+  <li>
+    <h3>Run it a second time</h3>
+    <p>Repeat the same command. A second success is the idempotence evidence. The script creates no cache, lock, or virtual environment, so the second run cannot drift from the first.</p>
+  </li>
+  <li>
+    <h3>Run the acceptance check</h3>
+    <p>Continue with section 6 before treating the machine as ready.</p>
+  </li>
+</ol>
+
+<h3>5.3 Install on a Cloud Agent (DS-CA)</h3>
+<p>Cursor checks the repository out into <span class="mono">/workspace</span> and then runs the install command from that directory. Put only the three lines from section 5.1 in the environment install field. Leave the start field empty.</p>
+<div class="ok"><strong>Why there is no start command.</strong> Start is for processes that must keep running, such as a database or a development server. This repository has neither. An empty start field means no per-boot process is launched for the project. Do not put the install command in start, and do not put a server in install.</div>
+<ol class="steps">
+  <li>
+    <h3>Confirm the workspace</h3>
+    <p><code>pwd</code> prints <code>/workspace</code>. <code>ls README.md</code> prints <code>README.md</code>. If the file is missing, stop. Do not create a substitute README to force install to pass.</p>
+  </li>
+  <li>
+    <h3>Run install the way the environment runs it</h3>
+    <pre><code>bash -lc 'set -euo pipefail
+test -f README.md
+echo "No package dependencies. Profile README repository is ready."'</code></pre>
+  </li>
+  <li>
+    <h3>Repeat the command</h3>
+    <p>The second exit status must be 0. On 5 October 2026 both runs printed the ready line and exited 0.</p>
+  </li>
+  <li>
+    <h3>Do not start a server</h3>
+    <p>There is no port to open. Readiness is the acceptance check in section 6, not an HTTP response.</p>
+  </li>
+</ol>
+
+<h3>5.4 What a successful install changes</h3>
+<table>
+  <thead>
+    <tr><th>Location</th><th>Change</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Repository files</td><td>None. <code>git status --short</code> stays empty.</td></tr>
+    <tr><td>Packages</td><td>None. No <code>apt</code>, <code>pip</code>, or <code>npm</code> invocation.</td></tr>
+    <tr><td>Processes</td><td>None left running. The shell exits.</td></tr>
+    <tr><td>Standard output</td><td>One ready line.</td></tr>
+  </tbody>
+  <caption>Table 6. Side effects of the install command.</caption>
+</table>
+
+<h2>6. Verification</h2>
+<p>Run this from the repository root after install. It is the acceptance check for both devices. Python’s standard library is enough; do not <span class="mono">pip install</span> anything for it.</p>
+<pre><code>python3 - &lt;&lt;'PY'
+from pathlib import Path
+text = Path("README.md").read_text(encoding="utf-8")
+visible = []
+for line in text.splitlines():
+    stripped = line.strip()
+    if not stripped or stripped.startswith("&lt;!") or stripped.startswith("yit2022/") or stripped.startswith("You can click") or stripped.startswith("---&gt;"):
+        continue
+    visible.append(stripped)
+if "```" in text and text.count("```") % 2 != 0:
+    raise SystemExit("unbalanced markdown fences")
+required = ["yit2022", "UIPATH", "rofric2020@gmail.com"]
+missing = [item for item in required if item not in text]
+if missing:
+    raise SystemExit(f"profile content missing: {missing}")
+if len(visible) &lt; 4:
+    raise SystemExit("profile README has too few visible lines")
+print(f"bytes={len(text.encode())} lines={len(text.splitlines())} visible_lines={len(visible)}")
+print("--- visible profile ---")
+print("\n".join(visible))
+print("HELLO_WORLD_OK")
+PY</code></pre>
+
+<p>On the validated README the check printed:</p>
+<pre><code>bytes=434 lines=10 visible_lines=5
+--- visible profile ---
+- 👋 Hi, I’m @yit2022
+- 👀 I’m interested in Robotic Process automation
+- 🌱 I’m currently learning UIPATH
+- 💞️ I’m looking to collaborate on robotic process automations projects
+- 📫 How to reach me rofric2020@gmail.com
+HELLO_WORLD_OK</code></pre>
+
+<div class="warn"><strong>Byte count.</strong> <code>bytes=434</code> and <code>lines=10</code> describe the README before this guide was added. After any edit to <code>README.md</code>, those two numbers change. <code>HELLO_WORLD_OK</code> is the pass signal. A missing required string, fewer than four visible lines, or an unbalanced fence is a failure.</div>
+
+<h3>6.1 Acceptance checklist</h3>
+<p>The device is ready when every row is true.</p>
+<table>
+  <thead>
+    <tr><th>#</th><th>Check</th><th>Pass condition</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Repository root</td><td><code>test -f README.md</code> exits 0</td></tr>
+    <tr><td>2</td><td>First install</td><td>Exit 0 and the ready line</td></tr>
+    <tr><td>3</td><td>Second install</td><td>Same result as the first install</td></tr>
+    <tr><td>4</td><td>Work tree</td><td><code>git status --short</code> prints nothing</td></tr>
+    <tr><td>5</td><td>Tracked product file</td><td><code>git ls-files</code> includes <code>README.md</code></td></tr>
+    <tr><td>6</td><td>Acceptance check</td><td>Output ends with <code>HELLO_WORLD_OK</code></td></tr>
+    <tr><td>7</td><td>Services</td><td>No project server was started</td></tr>
+  </tbody>
+  <caption>Table 7. Acceptance checklist used on 5 October 2026. Rows 1 through 6 passed on the validation virtual machine, and row 7 held because no start command is configured.</caption>
+</table>
+
+<h3>6.2 Recorded validation</h3>
+<p>Revision 1.0 of this guide records two runs of the install command on the virtual machine in Table 2, followed by the acceptance check. Both install runs printed the ready line. The acceptance check printed <span class="mono">HELLO_WORLD_OK</span> with five visible profile lines. <span class="mono">git status</span> was clean and the only tracked file at that time was <span class="mono">README.md</span>.</p>
+<p>The same install command was then executed by a Cloud Agent environment build. The build log contains the ready line and install exit code 0. A new agent booted from build <span class="mono">bld-20261005-61f28ef8-c54b-4398-985a-1bddc6bd255c</span> reported Git 2.43.0, Python 3.12.3, and Node v22.14.0, a clean <span class="mono">main</span> checkout, no start-script directory, no tmux session, and <span class="mono">HELLO_WORLD_OK</span>.</p>
+
+<h2>7. Operating rules</h2>
+<h3>7.1 Where new setup belongs</h3>
+<table>
+  <thead>
+    <tr><th>If you add…</th><th>Put it in…</th><th>Do not put it in…</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A package install tied to a lockfile</td>
+      <td>The environment install command, after <code>test -f README.md</code></td>
+      <td>A per-boot start command</td>
+    </tr>
+    <tr>
+      <td>A long-running server or database</td>
+      <td>A start command that skips work when the service is already up</td>
+      <td>The install command. Install must exit.</td>
+    </tr>
+    <tr>
+      <td>A one-off editor plugin on your laptop</td>
+      <td>The workstation only</td>
+      <td>The repository install command</td>
+    </tr>
+  </tbody>
+  <caption>Table 8. Where future setup belongs. None of these additions exist in the repository today.</caption>
+</table>
+
+<h3>7.2 Editing the profile</h3>
+<ol class="steps">
+  <li>
+    <h3>Edit README.md on a branch</h3>
+    <p>Keep the profile readable as a short list. The HTML comment block at the bottom is a GitHub profile hint; leaving it in place does not affect the visible page.</p>
+  </li>
+  <li>
+    <h3>Re-run section 6</h3>
+    <p>If you rename the GitHub login, change the learning line so it no longer contains <code>UIPATH</code>, or replace the contact address, update the <code>required</code> list in the acceptance check in the same change.</p>
+  </li>
+  <li>
+    <h3>Re-run install</h3>
+    <p>Install still only checks that the file exists. Run it once after the edit to confirm the working directory is still the root.</p>
+  </li>
+</ol>
+
+<h3>7.3 Reprinting this PDF</h3>
+<p>Edit <span class="mono">docs/device-set-and-installation-guide.html</span>, then from the repository root:</p>
+<pre><code>bash scripts/render-device-guide.sh</code></pre>
+<p>The script needs Google Chrome on <span class="mono">PATH</span>. It writes <span class="mono">docs/device-set-and-installation-guide.pdf</span> next to the HTML. Commit the HTML and the PDF together so the printed guide matches the source.</p>
+
+<h2>8. Troubleshooting</h2>
+<table>
+  <thead>
+    <tr><th>Symptom</th><th>Likely cause</th><th>What to do</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Install exits 1 with no ready line</td>
+      <td><code>README.md</code> is not in the current directory.</td>
+      <td>Run <code>pwd</code> and <code>ls</code>. <code>cd</code> to the clone root, or to <code>/workspace</code> on a Cloud Agent, and run install again.</td>
+    </tr>
+    <tr>
+      <td><code>bash: set: pipefail</code> or <code>set: -u</code> is rejected</td>
+      <td>The script was executed by <code>sh</code>, not Bash.</td>
+      <td>Run it with <code>bash -lc</code>, as in section 5.2.</td>
+    </tr>
+    <tr>
+      <td>Ready line prints, then <code>git status</code> shows modifications</td>
+      <td>Something other than this install command changed files. The install command does not write.</td>
+      <td>Inspect <code>git diff</code>. Do not attribute those edits to install.</td>
+    </tr>
+    <tr>
+      <td>Acceptance check prints <code>profile content missing</code></td>
+      <td>The README no longer contains one of the three required strings.</td>
+      <td>Restore the string or update the check and this guide together.</td>
+    </tr>
+    <tr>
+      <td><code>python3: command not found</code></td>
+      <td>Python 3 is not installed. Install can still succeed, because it is shell-only.</td>
+      <td>Install Python 3 (section 3.1) and re-run section 6. Do not mark the device ready on the install line alone.</td>
+    </tr>
+    <tr>
+      <td>Clone asks for credentials or returns 403</td>
+      <td>GitHub authentication for a private fetch, or no network path to <code>github.com</code>.</td>
+      <td>This repository’s public README clone does not need a token. Confirm the URL is <code>https://github.com/yit2022/yit2022.git</code> and that HTTPS to <code>github.com</code> works.</td>
+    </tr>
+    <tr>
+      <td><code>node -v</code> and <code>npm -v</code> disagree about the major install</td>
+      <td>Known image layout in Table 4. Two Node installs are on the machine.</td>
+      <td>Ignore it for this repository. If you add Node later, select one prefix deliberately.</td>
+    </tr>
+    <tr>
+      <td>A port is already in use during setup</td>
+      <td>Another project’s server. This guide starts none.</td>
+      <td>Do not add a server to make this repository “look” ready. Readiness is <code>HELLO_WORLD_OK</code>.</td>
+    </tr>
+  </tbody>
+  <caption>Table 9. Failures and the response that keeps the device set accurate.</caption>
+</table>
+
+<h3>8.1 Commands that collect a useful report</h3>
+<p>If install or the acceptance check fails, capture this report before changing the machine. It is enough to see whether the failure is the working directory, the README, or a missing interpreter.</p>
+<pre><code>pwd
+ls -la README.md
+git status --short
+git rev-parse --abbrev-ref HEAD
+git --version
+python3 --version
+bash -lc 'set -euo pipefail
+test -f README.md
+echo "No package dependencies. Profile README repository is ready."'</code></pre>
+
+<h2>9. Document control</h2>
+<table>
+  <thead>
+    <tr><th>Revision</th><th>Date</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.0</td>
+      <td>5 October 2026</td>
+      <td>Initial device set and installation guide. Records the workstation and Cloud Agent roles, the shell install command, the acceptance check, and the validation virtual machine’s software inventory.</td>
+    </tr>
+  </tbody>
+  <caption>Table 10. Revision history.</caption>
+</table>
+<p class="small">Document ID YIT-DEV-DS-001. The identifiers in the tables are local to this guide. They are not product SKUs. Versions in Table 2 and Table 4 were read from the validation virtual machine on the document date; a later base image can report different preinstalled compilers without invalidating the install command.</p>
+
+</body>
+</html>
